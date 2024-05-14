@@ -29,7 +29,7 @@ Follow these steps to set up the project:
 
     - Download the YOLO weights from [here](https://<to-announce>) and place them in the `weights` folder.
 
-    - Download the SAM weights from [this link](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) and place them in the `weights` folder.
+    - Download the SAM weights from [here](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) and place them in the `weights` folder.
 
 ## Running the Code
 
@@ -39,3 +39,6 @@ To execute the code, use the following command in the project directory:
 
 ```sh
 poetry run python erd_detection/main.py
+```
+
+Own handwritten Entity-Relationship diagrams can be tested by adding other images to the `data` folder.

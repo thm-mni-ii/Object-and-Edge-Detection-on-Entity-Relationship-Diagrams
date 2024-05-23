@@ -95,22 +95,22 @@ def detect_lines(img, objects, img_noncut):
         combined_leftover_dict, img, result_dict, img_noncut
     )
     # # uncomment for debug images
-    draw_debug_imgs(
-        img_card_endpnts,
-        img_endpoints,
-        img_endpoints_full,
-        img_increase,
-        img_leftover,
-        img_leftover2,
-        img_leftover3,
-        img_leftover4,
-        img_noncut,
-        img_result,
-        img_thinned,
-        img_visualize,
-        split_cont_img,
-        intersec_img,
-    )
+    # draw_debug_imgs(
+    #     img_card_endpnts,
+    #     img_endpoints,
+    #     img_endpoints_full,
+    #     img_increase,
+    #     img_leftover,
+    #     img_leftover2,
+    #     img_leftover3,
+    #     img_leftover4,
+    #     img_noncut,
+    #     img_result,
+    #     img_thinned,
+    #     img_visualize,
+    #     split_cont_img,
+    #     intersec_img,
+    # )
 
     center_point = (445, 872)
     size = 200
@@ -151,8 +151,8 @@ def get_inter_images(
             split_cont_with_end_img, point, radius=3, color=(0, 0, 255), thickness=-1
         )
         cv.circle(split_cont_img, point, radius=3, color=(0, 0, 255), thickness=-1)
-    cv.imwrite("output/inter_new_lines.png", split_cont_img)
-    cv.imwrite("output/intersections.png", intersec_img)
+    # cv.imwrite("output/inter_new_lines.png", split_cont_img)
+    # cv.imwrite("output/intersections.png", intersec_img)
     return split_cont_img, split_cont_with_end_img
 
 

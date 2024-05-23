@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import cv2 as cv
@@ -35,6 +36,7 @@ mask_generator = SamAutomaticMaskGenerator(
     points_per_side=78,
 )
 
+Path("output").mkdir(exist_ok=True)
 
 dataset = Path("./data")
 assert dataset.exists()
@@ -116,9 +118,10 @@ for file in dataset.iterdir():
             line_detection_image, elements, image_prep
         )
 
-        print(f'Nodes: {result_dict["nodes"]}')
-        print(f'Edges: {result_dict["edges"]}')
-
         mappings = list(set(mappings))
-        mapping_arr = np.array(mappings)
-        print(mapping_arr)
+        to_serialize = [mapping[1].to_dict(mapping[0]) for mapping in mappings]
+
+        data = {"Nodes": to_serialize, "Edges": result_dict["edges"]}
+
+        with open(f"output/{file.stem}.json", "w") as file:
+            json.dump(data, file)

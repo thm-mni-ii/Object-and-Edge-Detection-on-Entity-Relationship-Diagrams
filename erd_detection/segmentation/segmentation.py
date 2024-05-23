@@ -1,18 +1,29 @@
+import cv2 as cv
 import numpy as np
 import torch
 from shapely.geometry import box
-from torchvision.ops import box_convert
-import cv2 as cv
 from skimage.morphology import dilation, square
+from torchvision.ops import box_convert
+
 
 class DetectedMask:
     def __init__(self, mask_info, classification, id2label):
         self.segmentation = mask_info["segmentation"]
         self.bbox = mask_info["bbox"]
         self.classification = id2label[int(classification)]
+        self.text = ""
 
     def __str__(self):
         return f"{self.classification} detected inside {self.bbox}"
+
+    def to_dict(self, identifier):
+        data = {
+            "id": identifier,
+            "classification": self.classification,
+            "bbox": [str(x) for x in list(self.bbox)],
+            "text": self.text,
+        }
+        return data
 
 
 def get_masks(image, mask_generator):
@@ -107,6 +118,7 @@ def create_mask_information(sam_masks, classifications, id2label):
     for sam_mask, classification in zip(sam_masks, classifications):
         masks.append(DetectedMask(sam_mask, classification, id2label))
     return masks
+
 
 def zeroout_mask(image, mask):
     assert image.shape == mask.shape

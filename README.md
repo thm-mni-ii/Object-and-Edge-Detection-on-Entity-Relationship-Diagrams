@@ -27,7 +27,7 @@ Follow these steps to set up the project:
         mkdir weights
         ```
 
-    - Download the YOLO weights from [here](https://<to-announce>) and place them in the `weights` folder.
+    - Download the YOLO weights from [here](https://mndthmde-my.sharepoint.com/:u:/g/personal/maximilian_huber_mnd_thm_de/ERuYDWjopadGmWYJ4NuZqbIBZT8v7sd2ideJJ9ZzmLQcsw?e=fZFiv6) and place them in the `weights` folder.
 
     - Download the SAM weights from [here](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) and place them in the `weights` folder.
 

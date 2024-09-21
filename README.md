@@ -20,7 +20,7 @@ Follow these steps to set up the project:
     poetry install
     ```
 
-4. **Add the weights for YOLO and SAM:**
+4. **Add the weights for YOLO, SAM and TrOCR:**
 
     - Create a `weights` folder in the top level of the project directory:
         ```sh
@@ -31,9 +31,27 @@ Follow these steps to set up the project:
 
     - Download the SAM weights from [here](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) and place them in the `weights` folder.
 
+    - Download the TrOCR weights from [here]() and place them in the `weights` folder.
+
+### Automatic Installation for Linux/Unix
+
+To set up the project automatically, including creating a virtual environment, installing `poetry`, downloading all required dependencies, and fetching the necessary weights, run the `setup.sh` script with the following commands:
+
+1. **Make the script executable** (if needed):
+    ```sh
+    chmod +x setup.sh
+    ```
+
+2. **Run the script**:
+    ```sh
+    source setup.sh
+    ```
+
+This will handle everything, including setting up the environment and downloading required files, so the project is ready to use.
+
 ## Running the Code
 
-Before executing the code, update the file `erd_detection/main.py` at lines 22 and 29 with the appropriate paths.
+Before executing the code, update the file `erd_detection/main.py` at lines 24, 31 and 41 with the appropriate paths. (This step is not required if you use setup.sh)
 
 To execute the code, use the following command in the project directory:
 

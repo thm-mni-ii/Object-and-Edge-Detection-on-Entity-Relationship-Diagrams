@@ -29,3 +29,46 @@ transform = A.Compose(
 def yolo_preprocess(img):
     transformed = transform(image=img)
     return transformed["image"]
+
+trocr_transform = A.Compose(
+    [
+        A.LongestMaxSize(max_size=384, interpolation=cv.INTER_LANCZOS4),
+        A.Sharpen(alpha=1.0, lightness=1.0, p=1.0),
+        A.PadIfNeeded(
+            min_height=384,
+            min_width=384,
+            border_mode=cv.BORDER_CONSTANT,
+            value=255,
+        ),
+    ]
+)
+
+
+def trocr_preprocessor(img_orig, img_prep):
+    ref_size, ref_width, _ = img_prep.shape
+    assert ref_size == ref_width
+    height, width, _ = img_orig.shape
+
+    # calculate sclaing and offsets
+    if height > width:
+        scaling = height / ref_size
+        offset_x = (ref_size - width / scaling) // 2
+        offset_y = 0
+    else:
+        scaling = width / ref_size
+        offset_x = 0
+        offset_y = (ref_size - height / scaling) // 2
+
+    def get_image(obj):
+        x1, y1, x2, y2 = obj.bbox
+        x1 = int(round((x1 - offset_x) * scaling))
+        y1 = int(round((y1 - offset_y) * scaling))
+        x2 = int(round((x2 - offset_x) * scaling))
+        y2 = int(round((y2 - offset_y) * scaling))
+        obj.bbox = [x1, y1, x2, y2]
+
+        patch = img_orig[y1:y2, x1:x2]
+        transformed = trocr_transform(image=patch)
+        return transformed["image"]
+
+    return get_image

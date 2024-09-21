@@ -6,7 +6,7 @@ import numpy as np
 import torch
 from line_detection.line import detect_lines
 from object_detection.detection import cut_boxes, get_bboxes
-from preprocessing import yolo_preprocess
+from preprocessing import yolo_preprocess, trocr_preprocessor
 from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 from segmentation.segmentation import (
     create_mask_information,
@@ -18,16 +18,17 @@ from segmentation.segmentation import (
 )
 from torchvision.ops import nms
 from ultralytics import YOLO
+from text_detection.inference import OCRModel
 
 # YOLO
-yolo_weights = Path("./weights/<YOLO-WEIGHTS>.pt")
+yolo_weights = Path("./weights/yolo.pt")
 assert yolo_weights.exists()
 model = YOLO(yolo_weights)
 
 # SAM
 model_type = "vit_h"
 device = "cuda"
-sam_weights = Path("./weights/<SAM-WEIGHTS>.pth")
+sam_weights = Path("./weights/sam_vit_h_4b8939.pth")
 
 sam = sam_model_registry[model_type](checkpoint=sam_weights)
 sam.to(device=device)
@@ -35,6 +36,15 @@ mask_generator = SamAutomaticMaskGenerator(
     model=sam,
     points_per_side=78,
 )
+
+# TrOCR
+trocr_weights = Path("../base-unbalanced-0.155.ckpt")
+
+trocr = OCRModel.load_from_checkpoint(
+    checkpoint_path=trocr_weights,
+)
+trocr = trocr.to(device)
+
 
 Path("output").mkdir(exist_ok=True)
 
@@ -119,6 +129,15 @@ for file in dataset.iterdir():
         )
 
         mappings = list(set(mappings))
+
+        # Add text inference
+        preprocessor = trocr_preprocessor(image_orig, image_prep)
+        for mapping in mappings:
+            img = preprocessor(mapping[1])
+            if mapping[1].classification != "Clearly Unrecognizable":
+                text = trocr.detect_text(img)
+                mapping[1].text = text
+
         to_serialize = [mapping[1].to_dict(mapping[0]) for mapping in mappings]
 
         data = {"Nodes": to_serialize, "Edges": result_dict["edges"]}

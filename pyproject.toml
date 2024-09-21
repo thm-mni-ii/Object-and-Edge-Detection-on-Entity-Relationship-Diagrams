@@ -17,6 +17,9 @@ torch = {version = "^2.3.0+cu121", source = "pytorch"}
 torchvision = {version = "^0.18.0+cu121", source = "pytorch"}
 ultralytics = "^8.2.15"
 opencv-contrib-python = "^4.9.0.80"
+transformers = "^4.44.2"
+lightning = "^2.4.0"
+albucore = "0.0.16"
 
 
 [tool.poetry.group.dev.dependencies]

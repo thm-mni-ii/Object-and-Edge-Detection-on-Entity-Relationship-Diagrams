@@ -38,7 +38,7 @@ mask_generator = SamAutomaticMaskGenerator(
 )
 
 # TrOCR
-trocr_weights = Path("../base-unbalanced-0.155.ckpt")
+trocr_weights = Path("./weights/b-low-lr.ckpt")
 
 trocr = OCRModel.load_from_checkpoint(
     checkpoint_path=trocr_weights,

@@ -20,6 +20,7 @@ test -d weights || mkdir weights
 cd weights
 test -f yolo.pt || wget -O yolo.pt 'https://mndthmde-my.sharepoint.com/:u:/g/personal/maximilian_huber_mnd_thm_de/ERuYDWjopadGmWYJ4NuZqbIBZT8v7sd2ideJJ9ZzmLQcsw?e=yVKJhT&download=1'
 test -f sam_vit_h_4b8939.pth || wget -O sam_vit_h_4b8939.pth 'https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth'
+test -f b-low-lr.ckpt || wget -O b-low-lr.ckpt 'https://drive.usercontent.google.com/download?id=1t2MjHlfbkZOdNotmmQb-XeJyHOMRSKpH&export=download&confirm=t&uuid=c807f72d-572f-423a-903c-d198b3e8aa4e'
 cd ..
 
 

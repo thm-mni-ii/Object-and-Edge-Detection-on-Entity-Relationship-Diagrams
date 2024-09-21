@@ -31,7 +31,7 @@ Follow these steps to set up the project:
 
     - Download the SAM weights from [here](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) and place them in the `weights` folder.
 
-    - Download the TrOCR weights from [here]() and place them in the `weights` folder.
+    - Download the TrOCR weights from [here](https://drive.google.com/file/d/1t2MjHlfbkZOdNotmmQb-XeJyHOMRSKpH/view?usp=sharing) and place them in the `weights` folder.
 
 ### Automatic Installation for Linux/Unix
 
